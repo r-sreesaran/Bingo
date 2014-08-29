@@ -54,7 +54,7 @@ $(document).ready(function() {
 //This is used for triggering the click event 
 function populate(entry) {
     var value = JSON.parse(entry).value;
-    var colour = JSON.parse(entry).color;
+    recievedColor = JSON.parse(entry).color;
     var slotid = $.inArray(value, values);
     var slot = document.getElementById(slotid);
     $("#" + slotid).css('background-color', recievedColor);
