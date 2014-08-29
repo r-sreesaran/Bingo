@@ -6,31 +6,33 @@
 
 
 /*
- * 1)created a function which generate the click action 
- * 2)function to handle the incoming click events
+ * 1)Giving only a single chance to the user
+ * 2)Making it fool proof
  * 
- * 3)Game Logic 
- * 4)Differentiate various users 
- * 5)
  */
 var disabled;
-var disabled1 = true;
-var color;
-var color1;
+var sendingColor;
+var recievedColor;
+
+var values = new Array(25);
 $(document).ready(function() {
-    var position;
+    var i = 1;
+    $(this).find('td').each(function() {
+        values[i] = $(this).html();
+        i++;
+    });
     $('td').click(function() {
 
         if (disabled) {
             var toggle = this.style;
-            $(this).css('background-color', color);
+            $(this).css('background-color', sendingColor);
             $(this).attr('value', 'true');
             toggle.color = "#fff";
-            var position = $(this).attr('id');
+            var value = $(this).html();
             var json = JSON.stringify({
                 "type": "gridClick",
-                "position": position,
-                "color": color,
+                "value": value,
+                "color": sendingColor,
             });
             sendText(json);
         }
@@ -43,7 +45,7 @@ $(document).ready(function() {
                 "type": "buttonClick",
                 "value": id
             });
-            color = id;
+            sendingColor = id;
             disabled = true;
             sendText(data);
         }
@@ -51,11 +53,11 @@ $(document).ready(function() {
 });
 //This is used for triggering the click event 
 function populate(entry) {
-    var position = JSON.parse(entry).position;
-    var slotid = position;
+    var value = JSON.parse(entry).value;
     var colour = JSON.parse(entry).color;
+    var slotid = $.inArray(value, values);
     var slot = document.getElementById(slotid);
-    $("#" + slotid).css('background-color', color1);
+    $("#" + slotid).css('background-color', recievedColor);
     $("#" + slotid).attr('value', 'true');
     slot.style.color = "#fff";
 }
@@ -63,11 +65,9 @@ function populate(entry) {
 // This will disabled the selected button that was selected
 function disableButtons(data) {
     var id = JSON.parse(data).value;
-    $("#"+id).attr('disabled', 'disabled');
-    color1 = $("#"+id).html();
+    $("#" + id).attr('disabled', 'disabled');
+    recievedColor = $("#" + id).html();
 }
-var values = new Array(5);
-// checks whether the player has won the game or not 
 
 
 

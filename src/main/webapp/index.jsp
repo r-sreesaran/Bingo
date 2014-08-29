@@ -15,8 +15,8 @@
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
-        <script type="text/javascript" src="assets/js/script.js"></script>
-        <script type="text/javascript" src="assets/js/bingo.js"></script>
+        <script type="text/javascript" src="assets/js/intialize.js"></script>
+        <script type="text/javascript" src="assets/js/Bingo.js"></script>
         <script type="text/javascript" src="assets/js/websocket.js"></script>
 
 
@@ -33,37 +33,37 @@
                     <table >
                         <tr  >
                             <td id="1"  value="false">&nbsp;</td>
-                            <td id="6"  value="false">&nbsp;</td>
-                            <td id="11" value="false">&nbsp;</td>
-                            <td id="16" value="false">&nbsp;</td>
-                            <td id="21" value="false">&nbsp;</td>
-                        </tr>
-                        <tr>
                             <td id="2"  value="false">&nbsp;</td>
-                            <td id="7"  value="false">&nbsp;</td>
-                            <td id="12" value="false">&nbsp;</td>
-                            <td id="17" value="false">&nbsp;</td>
-                            <td id="22" value="false">&nbsp;</td>
-                        </tr>
-                        <tr>
                             <td id="3" value="false">&nbsp;</td>
+                            <td id="4" value="false">&nbsp;</td>
+                            <td id="5" value="false">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td id="6"  value="false">&nbsp;</td>
+                            <td id="7"  value="false">&nbsp;</td>
                             <td id="8" value="false">&nbsp;</td>
-                            <td id="13" value="false">Free</td>
-                            <td id="18" value="false">&nbsp;</td>
-                            <td id="23" value="false">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td id="4"  value="false">&nbsp;</td>
-                            <td id="9"  value="false">&nbsp;</td>
-                            <td id="14" value="false">&nbsp;</td>
-                            <td id="19" value="false">&nbsp;</td>
-                            <td id="24" value="false">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td id="5"  value="false">&nbsp;</td>
+                            <td id="9" value="false">&nbsp;</td>
                             <td id="10" value="false">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td id="11" value="false">&nbsp;</td>
+                            <td id="12" value="false">&nbsp;</td>
+                            <td id="13" value="false">Free</td>
+                            <td id="14" value="false">&nbsp;</td>
                             <td id="15" value="false">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td id="16"  value="false">&nbsp;</td>
+                            <td id="17"  value="false">&nbsp;</td>
+                            <td id="18" value="false">&nbsp;</td>
+                            <td id="19" value="false">&nbsp;</td>
                             <td id="20" value="false">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td id="21"  value="false">&nbsp;</td>
+                            <td id="22" value="false">&nbsp;</td>
+                            <td id="23" value="false">&nbsp;</td>
+                            <td id="24" value="false">&nbsp;</td>
                             <td id="25" value="false">&nbsp;</td>
                         </tr>
                     </table>

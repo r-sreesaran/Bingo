@@ -17,7 +17,7 @@ import javax.websocket.server.ServerEndpoint;
  * @author sree
  */
 
-@ServerEndpoint(value = "/websocket ",
+@ServerEndpoint(value = "/websocket",
         encoders = {FigureEncoder.class},
         decoders = {FigureDecoder.class})
 public class Bingo {
