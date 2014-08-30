@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-
+// This will handle the data 
 var Board = {
     value:'',
     position:'',
