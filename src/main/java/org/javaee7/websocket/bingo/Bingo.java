@@ -1,8 +1,6 @@
-
 package org.javaee7.websocket.bingo;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,17 +14,18 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author sree
  */
-
 @ServerEndpoint(value = "/websocket",
         encoders = {FigureEncoder.class},
         decoders = {FigureDecoder.class})
 public class Bingo {
 
     private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
-
+    private PeerInfo info = new PeerInfo();
+    
     @OnOpen
     public void onOpen(Session peer) {
         peers.add(peer);
+        info.
     }
 
     @OnClose
@@ -39,21 +38,17 @@ public class Bingo {
         System.out.println("boradcastFigure: " + figure);
         for (Session peer : peers) {
             if (!peer.equals(session)) {
+
                 peer.getBasicRemote().sendObject(figure);
             }
         }
     }
 
-    @OnMessage
-    public void broadcastSnapshot(ByteBuffer data, Session session) throws IOException {
-        System.out.println("broadcastBinary: " + data);
+    public void transmitPeerInformation() {
+        
         for (Session peer : peers) {
-            if (!peer.equals(session)) {
-                peer.getBasicRemote().sendBinary(data);
-            }
+        //      peer.getBasicRemote().sendObject(figure);
         }
     }
+
 }
-
-
-
