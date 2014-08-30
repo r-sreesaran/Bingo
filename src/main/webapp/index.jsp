@@ -69,7 +69,7 @@
                     </table>
                  <!--  <h3><a href="#" id="newCard" >Click me for a new card</a></h3> -->
                 </center>
-                <button type="button" class="btn btn-sm btn-danger" id="submit" onclick="evaluvateTable()">Submit</button> 
+                <button type="button" class="btn btn-sm btn-danger" id="submit" onclick="validateClaim()">Submit</button> 
                 <button type="button" class="btn btn-sm btn-success color" id="green" >green</button> 
                 <button type="button" class="btn btn-sm btn-warning color" id="yellow">yellow</button> 
             </div>
