@@ -13,7 +13,10 @@ package org.javaee7.websocket.bingo;
 import org.json.simple.JSONObject;
 
 public class PeerInfo {
-    PeerInfo( ) {
-    
+    JSONObject peerInfo;
+    PeerInfo(String id ) {
+    peerInfo = new JSONObject();
+    peerInfo.put("Type","Id Description");
+    peerInfo.put("id",id);
     }
 }

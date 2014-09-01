@@ -20,17 +20,19 @@ import javax.websocket.server.ServerEndpoint;
 public class Bingo {
 
     private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
-    private PeerInfo info = new PeerInfo();
+    private PeerInfo info;
+    private static final Set<PeerInfo> peerInfos = Collections.synchronizedSet(new HashSet<PeerInfo>());
     
     @OnOpen
-    public void onOpen(Session peer) {
+    public void onOpen(Session peer) throws IOException, EncodeException {
         peers.add(peer);
-        info.
-    }
+        transmitPeerInformation(peer);
+      }
 
     @OnClose
     public void onClose(Session peer) {
         peers.remove(peer);
+        
     }
 
     @OnMessage
@@ -50,5 +52,15 @@ public class Bingo {
         //      peer.getBasicRemote().sendObject(figure);
         }
     }
-
+    public void transmitPeerInformation(Session peer) throws IOException, EncodeException {
+       info = constructPeerInformation(peer);
+       peerInfos.add(info);
+       peer.getBasicRemote().sendObject(peerInfos);
+    }
+    
+    public PeerInfo constructPeerInformation(Session peer) {
+    PeerInfo info = new PeerInfo(peer.getId());
+    return info;
+    }
+    
 }
