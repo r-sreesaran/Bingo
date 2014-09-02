@@ -27,14 +27,14 @@ public class Bingo {
     @OnOpen
     public void onOpen(Session peer) throws IOException, EncodeException {
         peers.add(peer);
-        addPeerInformation(peer,peerInfoJson);
+        addPeerInformation(peer, peerInfoJson);
     }
 
     // check the corner case what will happen if the last peer is removed 
     @OnClose
     public void onClose(Session peer) throws EncodeException, IOException {
         peers.remove(peer);
-        removePeerInformation(peer,peerInfoJson);
+        removePeerInformation(peer, peerInfoJson);
 
     }
 
@@ -45,13 +45,6 @@ public class Bingo {
             if (!peer.equals(session)) {
                 peer.getBasicRemote().sendObject(figure);
             }
-        }
-    }
-
-    public void transmitPeerInformation() {
-
-        for (Session peer : peers) {
-            //      peer.getBasicRemote().sendObject(figure);
         }
     }
 
@@ -69,20 +62,24 @@ public class Bingo {
             PeerInfoJson = new JSONArray();
         }
         PeerInfoJson.add(info.getJSONObject());
-        peer.getBasicRemote().sendObject(info.getJSONObject().toString());
-        peer.getBasicRemote().sendObject(PeerInfoJson.toString());
+        peer.getBasicRemote().sendObject(info);
+       // peer.getBasicRemote().sendObject(PeerInfoJson.toString());
 
     }
 
+    /**
+     * This method will remove the peer information from the json Array
+     *
+     * @param peer
+     * @param PeerInfoJson
+     * @throws IOException
+     * @throws EncodeException
+     */
     public void removePeerInformation(Session peer, JSONArray PeerInfoJson) throws IOException, EncodeException {
-       info = constructPeerInformation(peer);
-       PeerInfoJson.remove(info);
-       peer.getBasicRemote().sendObject(PeerInfoJson.toString());
- 
-    }   
-    
-    
-    
+        PeerInfoJson.remove(constructPeerInformation(peer));
+        peer.getBasicRemote().sendObject(PeerInfoJson.toString());
+
+    }
 
     /**
      * This method will construct the jsonObject
