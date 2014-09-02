@@ -16,6 +16,7 @@ public class PeerInfo {
     JSONObject peerInfo;
 
     PeerInfo(String id) {
+        System.out.println(id);
         peerInfo = new JSONObject();
         peerInfo.put("Type", "Id Description");
         peerInfo.put("id", id);
