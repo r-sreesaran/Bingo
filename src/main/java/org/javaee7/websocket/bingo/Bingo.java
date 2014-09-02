@@ -10,6 +10,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import org.json.simple.JSONArray;
 
 /**
  * @author sree
@@ -21,18 +22,20 @@ public class Bingo {
 
     private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private PeerInfo info;
-    private static final Set<PeerInfo> peerInfos = Collections.synchronizedSet(new HashSet<PeerInfo>());
-    
+    private JSONArray peerInfoJson;
+
     @OnOpen
     public void onOpen(Session peer) throws IOException, EncodeException {
         peers.add(peer);
-        transmitPeerInformation(peer);
-      }
+        addPeerInformation(peer,peerInfoJson);
+    }
 
+    // check the corner case what will happen if the last peer is removed 
     @OnClose
-    public void onClose(Session peer) {
+    public void onClose(Session peer) throws EncodeException, IOException {
         peers.remove(peer);
-        
+        removePeerInformation(peer,peerInfoJson);
+
     }
 
     @OnMessage
@@ -40,27 +43,56 @@ public class Bingo {
         System.out.println("boradcastFigure: " + figure);
         for (Session peer : peers) {
             if (!peer.equals(session)) {
-
                 peer.getBasicRemote().sendObject(figure);
             }
         }
     }
 
     public void transmitPeerInformation() {
-        
+
         for (Session peer : peers) {
-        //      peer.getBasicRemote().sendObject(figure);
+            //      peer.getBasicRemote().sendObject(figure);
         }
     }
-    public void transmitPeerInformation(Session peer) throws IOException, EncodeException {
+
+    /**
+     * This method is for transmitting the peer information to all peers
+     *
+     * @param peer
+     * @throws IOException
+     * @throws EncodeException
+     */
+    public void addPeerInformation(Session peer, JSONArray PeerInfoJson) throws IOException, EncodeException {
+        info = constructPeerInformation(peer);
+
+        if (PeerInfoJson.size() == 0) {
+            PeerInfoJson = new JSONArray();
+        }
+        PeerInfoJson.add(info.getJSONObject());
+        peer.getBasicRemote().sendObject(info.getJSONObject().toString());
+        peer.getBasicRemote().sendObject(PeerInfoJson.toString());
+
+    }
+
+    public void removePeerInformation(Session peer, JSONArray PeerInfoJson) throws IOException, EncodeException {
        info = constructPeerInformation(peer);
-       peerInfos.add(info);
-       peer.getBasicRemote().sendObject(peerInfos);
-    }
+       PeerInfoJson.remove(info);
+       peer.getBasicRemote().sendObject(PeerInfoJson.toString());
+ 
+    }   
     
+    
+    
+
+    /**
+     * This method will construct the jsonObject
+     *
+     * @param peer
+     * @return
+     */
     public PeerInfo constructPeerInformation(Session peer) {
-    PeerInfo info = new PeerInfo(peer.getId());
-    return info;
+        PeerInfo info = new PeerInfo(peer.getId());
+        return info;
     }
-    
+
 }
