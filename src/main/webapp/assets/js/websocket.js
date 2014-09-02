@@ -9,9 +9,14 @@ var wsUri = "ws://" + document.location.host + document.location.pathname + "web
 console.log(wsUri);
 var websocket = new WebSocket(wsUri);
 
+websocket.onopen = function(json) {
+   console.log(json.data);
+}
+
 websocket.onmessage = function(evt) {
     onMessage(evt)
 };
+
 websocket.onerror = function(evt) {
     onError(evt)
 };
@@ -22,6 +27,7 @@ function sendText(json) {
 }
 
 function onMessage(evt) {
+    console.log(evt);
     console.log("received: " + evt.data);
     var type = JSON.parse(evt.data).type;
     if (type === "gridClick")
@@ -36,3 +42,8 @@ function onError(evt) {
     console.log(evt.data);
 }
 
+function onopen(json) {
+ $.parseJSON(function (json) {
+     
+ });
+}
