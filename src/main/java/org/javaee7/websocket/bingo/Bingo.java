@@ -11,6 +11,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * @author sree
@@ -21,12 +22,14 @@ import org.json.simple.JSONArray;
 public class Bingo {
 
     private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
-    private PeerInfo info;
-    private JSONArray peerInfoJson;
-
+    private  static JSONArray peerInfoJson = new JSONArray();
+       
+    
     @OnOpen
     public void onOpen(Session peer) throws IOException, EncodeException {
         peers.add(peer);
+       //    peer.getBasicRemote().sendObject("hi");
+      
         addPeerInformation(peer, peerInfoJson);
     }
 
@@ -55,16 +58,10 @@ public class Bingo {
      * @throws IOException
      * @throws EncodeException
      */
-    public void addPeerInformation(Session peer, JSONArray PeerInfoJson) throws IOException, EncodeException {
-        info = constructPeerInformation(peer);
-
-        if (PeerInfoJson.size() == 0) {
-            PeerInfoJson = new JSONArray();
-        }
-        PeerInfoJson.add(info.getJSONObject());
-        peer.getBasicRemote().sendObject(info);
-       // peer.getBasicRemote().sendObject(PeerInfoJson.toString());
-
+    public static void addPeerInformation(Session peer, JSONArray PeerInfoJson) throws IOException, EncodeException {
+         PeerInfoJson.add(constructPeerInformation(peer));
+        // peer.getBasicRemote().sendObject(PeerInfoJson.toString());
+         peer.getBasicRemote().sendObject(constructPeerInformation(peer).toString()); 
     }
 
     /**
@@ -87,9 +84,12 @@ public class Bingo {
      * @param peer
      * @return
      */
-    public PeerInfo constructPeerInformation(Session peer) {
-        PeerInfo info = new PeerInfo(peer.getId());
-        return info;
+    public static String constructPeerInformation(Session peer) {
+        JSONObject peerInfo = new JSONObject();
+        peerInfo.put("Type", "Id Description");
+        peerInfo.put("id", peer.getId());
+        return  peerInfo.toString();
+        
     }
 
 }
