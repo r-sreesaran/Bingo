@@ -60,8 +60,10 @@ public class Bingo {
      */
     public static void addPeerInformation(Session peer, JSONArray PeerInfoJson) throws IOException, EncodeException {
          PeerInfoJson.add(constructPeerInformation(peer));
-        // peer.getBasicRemote().sendObject(PeerInfoJson.toString());
          peer.getBasicRemote().sendObject(constructPeerInformation(peer).toString()); 
+         for (Session individualPeer : peers) {
+                individualPeer.getBasicRemote().sendObject(PeerInfoJson.toString());
+            }
     }
 
     /**
