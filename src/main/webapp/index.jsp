@@ -18,7 +18,7 @@
         <script type="text/javascript" src="assets/js/intialize.js"></script>
         <script type="text/javascript" src="assets/js/Bingo.js"></script>
         <script type="text/javascript" src="assets/js/websocket.js"></script>
-
+        <script type="text/javascript" src="assets/js/JsonParsing.js"></script>
 
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bootstrap-theme.min.css" />
