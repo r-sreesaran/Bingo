@@ -6,7 +6,7 @@
 var sessionId;
 var sessionIds;
 var position;
-
+var data;
 function jsonParsing(data) {
     
     data.type !== undefined ? typeOfEvent(data) : setJsonArray(data);
@@ -29,6 +29,8 @@ function typeOfEvent(data) {
 
 }
 
-function setJsonArray(data) {
-    sessionIds = JSON.parse(data[position]);
+function setJsonArray(data1) {
+    data = data1
+    console.log("condition 2");
+    sessionIds = JSON.parse(data[--position]);
 }
