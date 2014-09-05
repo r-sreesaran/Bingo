@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
     $('td').click(function() {
 
-        if (disabled) {
+        if (disabled&&(sessionId === sessionIds.id)) {
             var toggle = this.style;
             $(this).css('background-color', sendingColor);
             $(this).attr('value', 'true');
@@ -38,7 +38,6 @@ $(document).ready(function() {
                 "type": "gridClick",
                 "value": value,
                 "color": sendingColor,
-                "peers": '0',
             });
             filledPosition[position] = 'true';
             sendText(json);
