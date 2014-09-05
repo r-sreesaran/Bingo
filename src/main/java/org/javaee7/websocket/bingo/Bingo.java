@@ -22,14 +22,12 @@ import org.json.simple.JSONObject;
 public class Bingo {
 
     private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
-    private  static JSONArray peerInfoJson = new JSONArray();
-       
+    private static JSONArray peerInfoJson = new JSONArray();
     
     @OnOpen
     public void onOpen(Session peer) throws IOException, EncodeException {
         peers.add(peer);
        //    peer.getBasicRemote().sendObject("hi");
-      
         addPeerInformation(peer, peerInfoJson);
     }
 
@@ -88,8 +86,9 @@ public class Bingo {
      */
     public static String constructPeerInformation(Session peer) {
         JSONObject peerInfo = new JSONObject();
-        peerInfo.put("Type", "Id Description");
+        peerInfo.put("type", "Id Description");
         peerInfo.put("id", peer.getId());
+        peerInfo.put("pos",peerInfoJson.size());
         return  peerInfo.toString();
         
     }
