@@ -12,25 +12,22 @@ function jsonParsing(data) {
     data.type !== undefined ? typeOfEvent(data) : setJsonArray(data);
 }
 
-function typeOfEvent(data) {
-    var type = data.type;
-
-    if (type === "gridClick") {
-        populate(evt.data);
+function typeOfEvent(dat) {
+    var type = dat.type;
+     if (type === "gridClick") {
+        populate(dat);
     }
     if (type === "buttonClick") {
-        disableButtons(evt.data);
+        disableButtons(dat);
     }
     if (type === "Id Description") {
-        sessionId = data.id;
-        position = data.pos;
+        sessionId = dat.id;
+        position = dat.pos;
     }
     
 
 }
 
-function setJsonArray(data1) {
-    data = data1
-    console.log("condition 2");
-    sessionIds = JSON.parse(data[--position]);
+function setJsonArray(data) {
+    sessionIds = data;
 }
