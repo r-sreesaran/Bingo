@@ -27,16 +27,17 @@ public class Bingo {
     @OnOpen
     public void onOpen(Session peer) throws IOException, EncodeException {
         peers.add(peer);
-       //    peer.getBasicRemote().sendObject("hi");
-        addPeerInformation(peer, peerInfoJson);
+        addPeerInformation(peer);
     }
 
     // check the corner case what will happen if the last peer is removed 
     @OnClose
     public void onClose(Session peer) throws EncodeException, IOException {
-        peers.remove(peer);
-        removePeerInformation(peer, peerInfoJson);
-
+       peers.remove(peer);
+       //removePeerInformation(peer);
+        for (Session individualPeer : peers) {
+                individualPeer.getBasicRemote().sendObject("hi");
+            }
     }
 
     @OnMessage
@@ -56,13 +57,13 @@ public class Bingo {
      * @throws IOException
      * @throws EncodeException
      */
-    public static void addPeerInformation(Session peer, JSONArray PeerInfoJson) throws IOException, EncodeException {
-         PeerInfoJson.add(constructPeerInformation(peer));
+    public static void addPeerInformation(Session peer) throws IOException, EncodeException {
+         peerInfoJson.add(constructPeerInformation(peer));
          peer.getBasicRemote().sendObject(constructPeerInformation(peer).toString()); 
          for (Session individualPeer : peers) {
-                individualPeer.getBasicRemote().sendObject(PeerInfoJson.toString());
+                individualPeer.getBasicRemote().sendObject(peerInfoJson.toString());
             }
-    }
+    } 
 
     /**
      * This method will remove the peer information from the json Array
@@ -72,11 +73,7 @@ public class Bingo {
      * @throws IOException
      * @throws EncodeException
      */
-    public void removePeerInformation(Session peer, JSONArray PeerInfoJson) throws IOException, EncodeException {
-        PeerInfoJson.remove(constructPeerInformation(peer));
-        peer.getBasicRemote().sendObject(PeerInfoJson.toString());
-
-    }
+    
 
     /**
      * This method will construct the jsonObject
@@ -88,9 +85,10 @@ public class Bingo {
         JSONObject peerInfo = new JSONObject();
         peerInfo.put("type", "Id Description");
         peerInfo.put("id", peer.getId());
-        peerInfo.put("pos",peerInfoJson.size());
+        int position = peerInfoJson.size();
+        peerInfo.put("pos",position);
         return  peerInfo.toString();
         
     }
-
+    
 }
