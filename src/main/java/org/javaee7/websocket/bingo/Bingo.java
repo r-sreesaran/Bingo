@@ -23,7 +23,7 @@ public class Bingo {
 
     private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private static JSONArray peerInfoJson = new JSONArray();
-    
+
     @OnOpen
     public void onOpen(Session peer) throws IOException, EncodeException {
         peers.add(peer);
@@ -33,11 +33,11 @@ public class Bingo {
     // check the corner case what will happen if the last peer is removed 
     @OnClose
     public void onClose(Session peer) throws EncodeException, IOException {
-       peers.remove(peer);
-       //removePeerInformation(peer);
+        removePeerInformation(peer);
+        peers.remove(peer);
         for (Session individualPeer : peers) {
-                individualPeer.getBasicRemote().sendObject("hi");
-            }
+            individualPeer.getBasicRemote().sendObject(peerInfoJson.toString());
+        }
     }
 
     @OnMessage
@@ -58,12 +58,11 @@ public class Bingo {
      * @throws EncodeException
      */
     public static void addPeerInformation(Session peer) throws IOException, EncodeException {
-         peerInfoJson.add(constructPeerInformation(peer));
-         peer.getBasicRemote().sendObject(constructPeerInformation(peer).toString()); 
-         for (Session individualPeer : peers) {
-                individualPeer.getBasicRemote().sendObject(peerInfoJson.toString());
-            }
-    } 
+        peerInfoJson.add(constructPeerInformation(peer, peerInfoJson.size()));
+        for (Session individualPeer : peers) {
+            individualPeer.getBasicRemote().sendObject(peerInfoJson.toString());
+        }
+    }
 
     /**
      * This method will remove the peer information from the json Array
@@ -73,7 +72,17 @@ public class Bingo {
      * @throws IOException
      * @throws EncodeException
      */
-    
+    public static void removePeerInformation(Session peer) throws IOException, EncodeException {
+        int position = 0;
+        
+        for (Session individualPeer : peers) {
+            if (individualPeer.getId() == peer.getId()) {
+                peerInfoJson.remove(position);
+            }
+            position++;
+        }
+        
+    }
 
     /**
      * This method will construct the jsonObject
@@ -81,14 +90,13 @@ public class Bingo {
      * @param peer
      * @return
      */
-    public static String constructPeerInformation(Session peer) {
+    public static String constructPeerInformation(Session peer, int position) {
         JSONObject peerInfo = new JSONObject();
         peerInfo.put("type", "Id Description");
         peerInfo.put("id", peer.getId());
-        int position = peerInfoJson.size();
-        peerInfo.put("pos",position);
-        return  peerInfo.toString();
-        
+        peerInfo.put("pos", position);
+        return peerInfo.toString();
+
     }
-    
+
 }
