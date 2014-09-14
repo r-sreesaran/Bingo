@@ -1,9 +1,9 @@
 package org.javaee7.websocket.bingo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -21,12 +21,13 @@ import org.json.simple.JSONObject;
         decoders = {FigureDecoder.class})
 public class Bingo {
 
-    private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
+    private static final List<Session> peers = Collections.synchronizedList((new ArrayList<Session>()));
     private static JSONArray peerInfoJson = new JSONArray();
 
     @OnOpen
     public void onOpen(Session peer) throws IOException, EncodeException {
         peers.add(peer);
+        peer.getBasicRemote().sendObject(constructSinglePeerInformation(peers.get(0)));
         addPeerInformation(peer);
     }
 
@@ -74,14 +75,13 @@ public class Bingo {
      */
     public static void removePeerInformation(Session peer) throws IOException, EncodeException {
         int position = 0;
-        
         for (Session individualPeer : peers) {
-            if (individualPeer.getId() == peer.getId()) {
+            if (individualPeer.getId().equals(peer.getId())) {
                 peerInfoJson.remove(position);
             }
             position++;
         }
-        
+
     }
 
     /**
@@ -97,6 +97,18 @@ public class Bingo {
         peerInfo.put("pos", position);
         return peerInfo.toString();
 
+    }
+    
+    /**
+     * 
+     * @param peer
+     * @return 
+     */
+    public static String constructSinglePeerInformation(Session peer) {
+        JSONObject peerInfo = new JSONObject();
+        peerInfo.put("type", "firstStart");
+        peerInfo.put("id", peer.getId());
+        return peerInfo.toString();
     }
 
 }
