@@ -7,6 +7,7 @@ var sessionId;
 var sessionIds;
 var position;
 var data;
+var currentPlay;
 function jsonParsing(data) {
     
     data.type !== undefined ? typeOfEvent(data) : setJsonArray(data);
@@ -24,7 +25,9 @@ function typeOfEvent(dat) {
         sessionId = dat.id;
         position = dat.pos;
     }
-    
+    if (type === "firstStart") {
+        currentplay = dat.id;
+    }
 
 }
 
