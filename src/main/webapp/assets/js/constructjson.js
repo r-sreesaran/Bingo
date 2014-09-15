@@ -5,3 +5,10 @@
  */
 
 
+var constructSinglePeerInformationJson  = function(no){
+var obj = new Object();
+obj.type="firstStart";
+obj.id=no;
+var jsonString= JSON.stringify(obj);
+return obj;
+}
