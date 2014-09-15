@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
     $('td').click(function() {
 
-        if (disabled&&(sessionId === sessionIds.id)) {
+        if (disabled&&(sessionId === curentPlay)) {
             var toggle = this.style;
             $(this).css('background-color', sendingColor);
             $(this).attr('value', 'true');
