@@ -8,12 +8,12 @@ var sessionIds;
 var position;
 var data;
 var currentPlay;
-function jsonParsing(data) {
+var jsonParsing= function(data) {
     
     data.type !== undefined ? typeOfEvent(data) : setJsonArray(data);
 }
 
-function typeOfEvent(dat) {
+var typeOfEvent = function(dat) {
     var type = dat.type;
      if (type === "gridClick") {
         populate(dat);
@@ -31,6 +31,12 @@ function typeOfEvent(dat) {
 
 }
 
-function setJsonArray(data) {
+var setJsonArray = function(data) {
     sessionIds = data;
+}
+
+
+var nextplayer =  function(data) {
+   var jsonObj = $.parseJSON(data);
+   
 }
