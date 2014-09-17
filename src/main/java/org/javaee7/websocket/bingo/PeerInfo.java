@@ -39,5 +39,8 @@ public class PeerInfo {
         this.pos = pos;
     }
     
+   public void setPos1(int pos) {
+    this.pos1 = pos ;
+}
     
 }
