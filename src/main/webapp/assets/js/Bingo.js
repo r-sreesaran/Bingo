@@ -41,6 +41,7 @@ $(document).ready(function() {
             });
             filledPosition[position] = 'true';
             sendText(json);
+            sendText(nextplay(sessionId));
         }
     });
     $(".color").click(function() {
