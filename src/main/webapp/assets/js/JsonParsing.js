@@ -25,7 +25,7 @@ var typeOfEvent = function(dat) {
         sessionId = dat.id;
         position = dat.pos;
     }
-    if (type === "firstStart") {
+    if (type === "currentPlay") {
         currentplay = dat.id;
     }
 
