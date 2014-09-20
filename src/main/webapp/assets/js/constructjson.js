@@ -5,19 +5,23 @@
  */
 
 
-var constructSinglePeerInformationJson  = function(no){
-var obj = new Object();
-obj.type="currentPlay";
-obj.id=no;
-var jsonString= JSON.stringify(obj);
-return obj;
+var constructSinglePeerInformationJson  = function(id){
+ 
+var data = JSON.stringify({
+                "type": "currentPlay",
+                "id": id
+            });
+return data;
+
 }
 
 var nextplay = function(currentid) {
-    for each (var session in sessionIds ) {
-      if(session.id === currentid) {
-          var currentPos=  sessionIds.indexOf(session)
-            constructSinglePeerInformationJson(currentPos == sessionIds.length-1?0:currentPos++) 
-      }
-    } 
+   for(var count = 0 ; count < sessionIds.length;count++) {
+      if( $.parseJSON(sessionIds[count]).id === currentid) {
+           var pos = (count == sessionIds.length-1?0:count+1);
+          console.log(pos);
+          
+            return constructSinglePeerInformationJson($.parseJSON(sessionIds[pos]).id);
+       }
+   }
 }
