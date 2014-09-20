@@ -19,11 +19,17 @@ import org.json.simple.JSONObject;
 @ServerEndpoint(value = "/websocket",
         encoders = {FigureEncoder.class},
         decoders = {FigureDecoder.class})
+ 
 public class Bingo {
 
     private static final List<Session> peers = Collections.synchronizedList((new ArrayList<Session>()));
     private static JSONArray peerInfoJson = new JSONArray();
-
+    /**
+     * 
+     * @param peer
+     * @throws IOException
+     * @throws EncodeException 
+     */
     @OnOpen
     public void onOpen(Session peer) throws IOException, EncodeException {
         peers.add(peer);
@@ -32,6 +38,12 @@ public class Bingo {
     }
 
     // check the corner case what will happen if the last peer is removed 
+    /**
+     * 
+     * @param peer
+     * @throws EncodeException
+     * @throws IOException 
+     */
     @OnClose
     public void onClose(Session peer) throws EncodeException, IOException {
         removePeerInformation(peer);
@@ -41,6 +53,13 @@ public class Bingo {
         }
     }
 
+    /** 
+     * 
+     * @param figure
+     * @param session
+     * @throws IOException
+     * @throws EncodeException 
+     */
     @OnMessage
     public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
         System.out.println("boradcastFigure: " + figure);
