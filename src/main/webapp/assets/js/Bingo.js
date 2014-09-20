@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
     $('td').click(function() {
 
-        if (disabled&&(sessionId === curentPlay)) {
+        if (disabled&&(sessionId === currentPlay)) {
             var toggle = this.style;
             $(this).css('background-color', sendingColor);
             $(this).attr('value', 'true');
@@ -42,6 +42,7 @@ $(document).ready(function() {
             filledPosition[position] = 'true';
             sendText(json);
             sendText(nextplay(sessionId));
+            currentPlay = JSON.parse(nextplay(sessionId)).id;
         }
     });
     $(".color").click(function() {
@@ -61,7 +62,7 @@ $(document).ready(function() {
 //This is used for triggering the click event 
 function populate(entry) {
     var value = entry.value;
-    recievedColor = JSON.parse(entry).color;
+    recievedColor = entry.color;
     var slotid = $.inArray(value, values);
     var slot = document.getElementById(slotid);
     filledPosition[slotid] = 'true';
