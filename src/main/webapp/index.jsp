@@ -10,7 +10,7 @@
     <head>
         <meta charset=utf-8 />
         <title>Bingo - Card</title>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -19,7 +19,9 @@
         <script type="text/javascript" src="assets/js/Bingo.js"></script>
         <script type="text/javascript" src="assets/js/websocket.js"></script>
         <script type="text/javascript" src="assets/js/JsonParsing.js"></script>
+        <script type="text/javascript" src="assets/js/constructjson.js"></script>
 
+        
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bootstrap-theme.min.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bootstrap.min.css" />
