@@ -59,6 +59,7 @@ public class Bingo {
      * @throws EncodeException
      */
     public static void addPeerInformation(Session peer) throws IOException, EncodeException {
+        peer.getBasicRemote().sendObject(constructPeerInformation(peer, peerInfoJson.size()));
         peerInfoJson.add(constructPeerInformation(peer, peerInfoJson.size()));
         for (Session individualPeer : peers) {
             individualPeer.getBasicRemote().sendObject(peerInfoJson.toString());
@@ -106,7 +107,7 @@ public class Bingo {
      */
     public static String constructSinglePeerInformation(Session peer) {
         JSONObject peerInfo = new JSONObject();
-        peerInfo.put("type", "firstStart");
+        peerInfo.put("type", "currentPlay");
         peerInfo.put("id", peer.getId());
         return peerInfo.toString();
     }
