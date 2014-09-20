@@ -26,8 +26,9 @@ var typeOfEvent = function(dat) {
         position = dat.pos;
     }
     if (type === "currentPlay") {
-        currentplay = dat.id;
+        currentPlay = dat.id;
     }
+    
 
 }
 
