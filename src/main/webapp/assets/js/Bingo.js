@@ -129,9 +129,12 @@ function validateClaim() {
     if (count == 5) {
         totalCount++;
     }
-
+console.log("checkings")
     if (totalCount == 5) {
         alert("you have won");
+    }
+    else {
+        alert("oops columns are still empty  ");
     }
 }
 
