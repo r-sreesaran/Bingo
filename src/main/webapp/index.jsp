@@ -28,7 +28,11 @@
 
 
     </head>
-    <body>
+    <body >
+        <div id="fill" class="bg-color">
+        <div id="top">
+        </div>
+        
         <div id="group1">
             <div id="page">
                 <center >
@@ -75,7 +79,7 @@
                 <button type="button" class="btn btn-sm btn-success color" id="green" >green</button> 
                 <button type="button" class="btn btn-sm btn-warning color" id="yellow">yellow</button> 
             </div>
-        </div>
-
+         </div>
+       </div>
     </body>
 </html>
