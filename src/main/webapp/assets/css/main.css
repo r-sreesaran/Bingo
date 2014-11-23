@@ -1,0 +1,47 @@
+body {
+	background-color:black;
+}
+.Main {
+	font-family: 'Roboto' , Sans-serif;
+	background-color:black;
+}
+#mainContainer {
+	margin-top: 1%; 
+	margin-bottom:30%;
+	margin-left: 1%;
+	margin-right:1%;
+}
+
+#welcomeText {
+	opacity: .3;
+}
+
+p#text {
+    color:white;
+    font-family: 'Roboto', Sans-Serif;
+    font-size: 20px;
+    font-style: Bold;
+    margin: 5% 45% 10% 47%;
+    opacity: inherit;
+}
+
+img {
+	background-size: 3% 3%
+}
+
+
+
+@font-face : {
+	font-family:'Roboto';
+	src:url(assets/font/RobotoCondensed-Regular.ttf);
+    format('tff');	
+}
+
+#submitBar {
+	margin-top: 40%;
+	margin-bottom: 1%
+    
+}
+#submit {
+	margin-left: 48%;
+}
